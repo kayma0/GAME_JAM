@@ -23,3 +23,24 @@ body {
   height: 50px;
   background: url("test_gem.jpeg") no-repeat center/contain;
 }
+.thought-cloud {
+  position: absolute;
+  bottom: 160px;
+  left: 150px;
+  width: 150px;
+  height: 80px;
+  background: url("test_speech_bubble.png") no-repeat center/contain;
+  display: none;
+}
+.thought-text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+}

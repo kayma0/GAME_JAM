@@ -2,6 +2,8 @@
 let background = document.querySelector(".game-container");
 let character = document.querySelector(".character");
 let gems = document.querySelectorAll(".gem");
+let thoughtCloud = document.getElementById("thoughtCloud"); //I'm not sure what its called so i named it thought cloud 😭😂
+let thoughtText = document.getElementById("thoughtText"); // Text inside the cloud
 
 let background_position = 0; //keeps track of the backgrounds horizontal postion..its set to 0 now, and the game continues, it decreases..
 let character_speed = 5; //keeps track of how fast the character and the background moves
@@ -30,6 +32,9 @@ function moveBackground() {
   character_position += character_speed; //of course, this moves the player to the right..
   character.style.left = character_position + "px"; //just like the one for the background..
 
+  thoughtCloud.style.left = character_position + 50 + "px";
+  thoughtCloud.style.bottom = "160px";
+
   // Check for gem collision
   gems.forEach((gem, index) => {
     //this is for looping through all the gems
@@ -47,20 +52,25 @@ function moveBackground() {
 
       let user_answer = prompt(questions[index].question); //this gets the question from the questions array and displays it as a prompt using JS Alert
       if (user_answer.toLowerCase() === questions[index].answer.toLowerCase()) {
+        gems_collected++; //gems collected
         //this means for e.g. Two is same as two..or Fish is same as fish..you get?
+        showThought(
+          `Yay! I got ${gems_collected} gem${gems_collected > 1 ? "s" : " "}!`,
+          5000
+        );
         alert("CONTINUE!");
-
-        // This removes the gem because it has been collected..
-        gem.style.display = "none";
-        gems_collected++;
+        gem.style.display = "none"; //hide the thought cloud again..This removes the gem because it has been collected..
 
         //if the number of gems collected is equal to the question length, the game restarts..
         if (gems_collected === questions.length) {
-          setTimeout(restartGame, 1000); // The game restarts after the last question..with some delay ofcourse!
+          setTimeout(restartGame, 5000); // The game restarts after the last question..with some delay ofcourse!
         }
       } else {
-        alert("Wrong answer! Game Over.");
-        location.reload(); // This reloads the page if the player gets a question wrong...and wellll, the game starts again..lol
+        showThought("Oh no..", 5000);
+        setTimeout(() => {
+          alert("Wrong answer! Game Over.");
+          location.reload(); // This reloads the page if the player gets a question wrong...and wellll, the game starts again..lol
+        }, 2000);
       }
     }
   });
@@ -90,4 +100,15 @@ function restartGame() {
   moveBackground();
 }
 
+function showThought(message, duration) {
+  thoughtText.innerText = message; //used to set the text in the thought cloud
+  thoughtCloud.style.display = "block"; // show the thought cloud
+
+  setTimeout(() => {
+    thoughtCloud.style.display = "none"; // hide the thought cloud after duration
+  }, duration);
+}
+
 moveBackground(); //ummm yk what this is right 🥹?
+
+//UGHHH I'M CONFUSED NOW!

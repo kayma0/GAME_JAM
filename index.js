@@ -13,8 +13,6 @@ let gameFrame = 0;
 const staggerFrame = 5;
 const CharacterAnimations = [];
 
-
-
 const animationState = [
     {
         name: 'idle',
@@ -73,45 +71,55 @@ animationState.forEach((state, index) => {
 
 let characterY = 400; // Ground position
 let isJumping = false;
-let jumpPeak = 400 - CANVAS_HEIGHT / 2; // Halfway up the canvas
-let velocity = 0;
-let gravity = 1.5;
+let jumpStartTime = 0;
+let jumpDuration = 300; // 2 seconds
+let gravity = 4;
 
 // Change CharacterState when a key is pressed
 document.addEventListener("keydown", (event) => {
   if (!isJumping && (event.key === "w" || event.key === " " || event.key === "ArrowUp")) {
     isJumping = true;
     CharacterState = "jump";
-    velocity = -15; // Jump force
+    jumpStartTime = Date.now(); // Store the start time
+}
+});
+document.addEventListener("keypress", (event) => {
+  if (!isJumping && (event.key === "w" || event.key === " " || event.key === "ArrowUp")) {
+    isJumping = true;
+    CharacterState = "jump";
+    jumpStartTime = Date.now(); // Store the start time
 }
 });
 
-// Optional: Reset to "idle" when key is released
-document.addEventListener("keyup", (event) => {
-  CharacterState = "idle";
-});
+
 
 function animate() {
-  
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-    // Jump mechanics
     if (isJumping) {
-      characterY += velocity;
-      velocity += gravity;
+      let elapsedTime = Date.now() - jumpStartTime;
 
-      if (characterY >= 400) { 
-          characterY = 400;
-          isJumping = false;
-          CharacterState = "idle";
+      if (elapsedTime < jumpDuration) {
+          // Move character up for 2 seconds
+          characterY = 400 - (elapsedTime / jumpDuration) * (CANVAS_HEIGHT / 6);
+      } else {
+          // Start falling after 2 seconds
+          CharacterState = "fall";
+          characterY += gravity;
+
+          if (characterY >= 400) { 
+              characterY = 400;
+              isJumping = false;
+              CharacterState = "run";
+          }
       }
-  }
+  }   
     //do podition increaes by 1 every time game frame increases by 5 and only cycles between 0 and 6
     let position = Math.floor(gameFrame / staggerFrame) % CharacterAnimations[CharacterState].loc.length;
     let frameX = CharacterWidth * position;
     let frameY = CharacterAnimations[CharacterState].loc[position].y;
 
-    ctx.drawImage(CharacterImg, frameX, frameY, CharacterWidth, CharacterHeight, 0, 400, CharacterWidth/6, CharacterHeight/4);
+    ctx.drawImage(CharacterImg, frameX, frameY, CharacterWidth, CharacterHeight, 0, characterY, CharacterWidth/6, CharacterHeight/4);
 
     gameFrame++;
     requestAnimationFrame(animate);

@@ -1,3 +1,149 @@
+let CharacterState = "run";
+const canvas = document.getElementById('game-container');
+const ctx = canvas.getContext("2d");
+const CANVAS_WIDTH = canvas.width = 600;
+const CANVAS_HEIGHT = canvas.height = 600;
+
+const CharacterImg = new Image();
+CharacterImg.src = "size ref can edit.png";
+const CharacterWidth = 575;
+const CharacterHeight = 523;
+
+let gameFrame = 0;
+const staggerFrame = 2;
+const CharacterAnimations = [];
+
+const animationState = [
+    {
+        name: 'idle',
+        frames: 7,
+    },
+    {
+        name: 'jump',
+        frames: 7,
+    },
+    {
+        name: 'fall',
+        frames: 7,
+    },
+    {
+        name: 'run',
+        frames: 9,
+    },
+    {
+        name: 'dizzy',
+        frames: 11,
+    },
+    {
+        name: 'sit',
+        frames: 5,
+    },
+    {
+        name: 'roll',
+        frames: 7,
+    },
+    {
+        name: 'bite',
+        frames: 7,
+    },
+    {
+        name: 'ko',
+        frames: 12,
+    },
+    {
+        name: 'gethit',
+        frames: 4,
+    }
+];
+
+animationState.forEach((state, index) => {
+    let frames = {
+        //location
+        loc: [],
+    }
+    for (let j = 0; j < state.frames; j++) {
+        let positionX = j * CharacterWidth;
+        let positionY = index * CharacterHeight;
+        frames.loc.push({ x: positionX, y: positionY });
+    }
+    CharacterAnimations[state.name] = frames;
+});
+
+//character jumping veriables
+let characterY = 400; // Ground position
+let isJumping = false;
+let jumpStartTime = 0;
+let jumpDuration = 300; // 2 seconds
+let gravity = 4;
+
+// Background scrolling variables
+let bgPosition = 0; // Initial background position
+const bgSpeed = 6; // Speed of background movement
+const bgWidth = 1920; // Width of background image (adjust if different)
+let loopCount = 0;
+const maxLoops = 2; // Stop after two full loops
+
+// Change CharacterState when a key is pressed
+document.addEventListener("keydown", (event) => {
+  if (!isJumping && (event.key === "w" || event.key === " " || event.key === "ArrowUp")) {
+    isJumping = true;
+    CharacterState = "jump";
+    jumpStartTime = Date.now(); // Store the start time
+}
+});
+document.addEventListener("keypress", (event) => {
+  if (!isJumping && (event.key === "w" || event.key === " " || event.key === "ArrowUp")) {
+    isJumping = true;
+    CharacterState = "jump";
+    jumpStartTime = Date.now(); // Store the start time
+}
+});
+
+
+
+function animate() {
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    // Background scrolling logic
+    if (loopCount < maxLoops) {
+      bgPosition -= bgSpeed;
+      if (Math.abs(bgPosition) >= bgWidth) {
+          bgPosition = 0;
+          loopCount++;
+      }
+      document.getElementById("game-container").style.backgroundPositionX = `${bgPosition}px`;
+  }
+  //jumping logic
+    if (isJumping) {
+      let elapsedTime = Date.now() - jumpStartTime;
+
+      if (elapsedTime < jumpDuration) {
+          // Move character up for 2 seconds
+          characterY = 400 - (elapsedTime / jumpDuration) * (CANVAS_HEIGHT / 6);
+      } else {
+          // Start falling after 2 seconds
+          CharacterState = "fall";
+          characterY += gravity;
+
+          if (characterY >= 400) { 
+              characterY = 400;
+              isJumping = false;
+              CharacterState = "run";
+          }
+      }
+  }   
+    //do podition increaes by 1 every time game frame increases by 5 and only cycles between 0 and 6
+    let position = Math.floor(gameFrame / staggerFrame) % CharacterAnimations[CharacterState].loc.length;
+    let frameX = CharacterWidth * position;
+    let frameY = CharacterAnimations[CharacterState].loc[position].y;
+
+    ctx.drawImage(CharacterImg, frameX, frameY, CharacterWidth, CharacterHeight, 0, characterY, CharacterWidth/8, CharacterHeight/4);
+
+    gameFrame++;
+    requestAnimationFrame(animate);
+};
+
+animate();
+/*old java
 //These select the background, the character, and the gems on the screen..
 let background = document.querySelector(".game-container");
 let character = document.querySelector(".character");
@@ -112,3 +258,4 @@ function showThought(message, duration) {
 moveBackground(); //ummm yk what this is right 🥹?
 
 //UGHHH I'M CONFUSED NOW!
+*/

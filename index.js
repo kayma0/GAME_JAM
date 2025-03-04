@@ -10,7 +10,7 @@ const CharacterWidth = 575;
 const CharacterHeight = 523;
 
 let gameFrame = 0;
-const staggerFrame = 5;
+const staggerFrame = 2;
 const CharacterAnimations = [];
 
 const animationState = [
@@ -69,11 +69,19 @@ animationState.forEach((state, index) => {
     CharacterAnimations[state.name] = frames;
 });
 
+//character jumping veriables
 let characterY = 400; // Ground position
 let isJumping = false;
 let jumpStartTime = 0;
 let jumpDuration = 300; // 2 seconds
 let gravity = 4;
+
+// Background scrolling variables
+let bgPosition = 0; // Initial background position
+const bgSpeed = 6; // Speed of background movement
+const bgWidth = 1920; // Width of background image (adjust if different)
+let loopCount = 0;
+const maxLoops = 2; // Stop after two full loops
 
 // Change CharacterState when a key is pressed
 document.addEventListener("keydown", (event) => {
@@ -95,7 +103,16 @@ document.addEventListener("keypress", (event) => {
 
 function animate() {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-
+    // Background scrolling logic
+    if (loopCount < maxLoops) {
+      bgPosition -= bgSpeed;
+      if (Math.abs(bgPosition) >= bgWidth) {
+          bgPosition = 0;
+          loopCount++;
+      }
+      document.getElementById("game-container").style.backgroundPositionX = `${bgPosition}px`;
+  }
+  //jumping logic
     if (isJumping) {
       let elapsedTime = Date.now() - jumpStartTime;
 
@@ -119,7 +136,7 @@ function animate() {
     let frameX = CharacterWidth * position;
     let frameY = CharacterAnimations[CharacterState].loc[position].y;
 
-    ctx.drawImage(CharacterImg, frameX, frameY, CharacterWidth, CharacterHeight, 0, characterY, CharacterWidth/6, CharacterHeight/4);
+    ctx.drawImage(CharacterImg, frameX, frameY, CharacterWidth, CharacterHeight, 0, characterY, CharacterWidth/8, CharacterHeight/4);
 
     gameFrame++;
     requestAnimationFrame(animate);

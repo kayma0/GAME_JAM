@@ -1,8 +1,4 @@
-let CharacterState = "idle";
-const dropdown = document.getElementById("animations");
-dropdown.addEventListener("change", function (e) {
-    CharacterState = e.target.value;
-})
+let CharacterState = "run";
 const canvas = document.getElementById('game-container');
 const ctx = canvas.getContext("2d");
 const CANVAS_WIDTH = canvas.width = 600;
@@ -16,6 +12,8 @@ const CharacterHeight = 523;
 let gameFrame = 0;
 const staggerFrame = 5;
 const CharacterAnimations = [];
+
+
 
 const animationState = [
     {
@@ -73,8 +71,41 @@ animationState.forEach((state, index) => {
     CharacterAnimations[state.name] = frames;
 });
 
+let characterY = 400; // Ground position
+let isJumping = false;
+let jumpPeak = 400 - CANVAS_HEIGHT / 2; // Halfway up the canvas
+let velocity = 0;
+let gravity = 1.5;
+
+// Change CharacterState when a key is pressed
+document.addEventListener("keydown", (event) => {
+  if (!isJumping && (event.key === "w" || event.key === " " || event.key === "ArrowUp")) {
+    isJumping = true;
+    CharacterState = "jump";
+    velocity = -15; // Jump force
+}
+});
+
+// Optional: Reset to "idle" when key is released
+document.addEventListener("keyup", (event) => {
+  CharacterState = "idle";
+});
+
 function animate() {
+  
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+    // Jump mechanics
+    if (isJumping) {
+      characterY += velocity;
+      velocity += gravity;
+
+      if (characterY >= 400) { 
+          characterY = 400;
+          isJumping = false;
+          CharacterState = "idle";
+      }
+  }
     //do podition increaes by 1 every time game frame increases by 5 and only cycles between 0 and 6
     let position = Math.floor(gameFrame / staggerFrame) % CharacterAnimations[CharacterState].loc.length;
     let frameX = CharacterWidth * position;

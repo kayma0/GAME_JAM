@@ -18,6 +18,7 @@ var cardSet;
 var board = []; //will be populated after the game loads and cards are shuffled
 var rows = 4;
 var col = 5;
+var lives = 3; //player starts with 3 lives
 var select1 = null; // Store the first selected card element
 var select2 = null; // Store the second selected card element
 var canClick = true; // Flag to control whether cards can be clicked
@@ -60,7 +61,7 @@ function startGame() {
         board.push(row); // Push the current row to the board
     }
     console.log(board); //print the board
-    setTimeout(hideCards, 2000); // shows cards for a certain amount of time before hiding 
+    setTimeout(hideCards, 3000); // shows cards for a certain amount of time before hiding 
 }
 
 function hideCards() {
@@ -100,6 +101,11 @@ function update() {
         select2.src = "cardcover.png";
         errors = errors + 1;
         document.getElementById("errors").innerText = errors;
+
+        //checks if user has made errors
+        if (errors >=1) {
+            lifeLost();
+        }
     }
 
     // Reset selected cards and re-enable clicking
@@ -107,5 +113,29 @@ function update() {
     select2 = null;
     canClick = true; // Re-enable clicking for the next pair
     
+}
+
+function lifeLost() {
+    lives = lives -1;
+    if (lives > 0){
+        alert(`Oh no! You lost a life! Lives remaining: ${lives}`);
+    } else if (lives == 0) {
+        alert("Game over! You've run out of lives.");
+        restartGame();
+    }
+}
+
+function restartGame() {
+    lives = 3; // Reset lives
+    errors = 0; // Reset errors
+    // Reset the board
+    document.getElementById("memboard").innerHTML = ""; // Clear the board
+    board = []; // Reset the board array
+    errors = 0; // Reset the error count
+    document.getElementById("errors").innerText = errors; // Update the error display
+
+    // Shuffle and start the game again
+    shuffleCards();
+    startGame();
 }
 

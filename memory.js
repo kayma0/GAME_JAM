@@ -18,7 +18,8 @@ var cardSet;
 var board = []; //will be populated after the game loads and cards are shuffled
 var rows = 4;
 var col = 5;
-var lives = 3; //player starts with 3 lives
+var lives = 5; //player starts with 3 lives
+var matchedPairs = 0; // Track the number of matched pairs
 var select1 = null; // Store the first selected card element
 var select2 = null; // Store the second selected card element
 var canClick = true; // Flag to control whether cards can be clicked
@@ -61,7 +62,7 @@ function startGame() {
         board.push(row); // Push the current row to the board
     }
     console.log(board); //print the board
-    setTimeout(hideCards, 3000); // shows cards for a certain amount of time before hiding 
+    setTimeout(hideCards, 5000); // shows cards for a certain amount of time before hiding 
 }
 
 function hideCards() {
@@ -95,18 +96,26 @@ function selectCard() {
 }
 
 function update() {
-    //if the cards aren't the same, flip them back
-    if (select1.src !== select2.src) {
+    if (select1.src === select2.src) {
+        matchedPairs += 1; // Increment the matched pairs counter
+
+        // Check if all pairs have been matched
+        if (matchedPairs === cardList.length) {
+            showWinMessage(); // Show the winning message
+        }
+    } else {
+        //if the cards aren't the same, flip them back
         select1.src = "cardcover.png";
         select2.src = "cardcover.png";
-        errors = errors + 1;
+        errors += 1;
         document.getElementById("errors").innerText = errors;
 
-        //checks if user has made errors
-        if (errors >=1) {
+        // Check if the player has made too many errors
+        if (errors >= 1) { // Adjust the threshold as needed
             lifeLost();
         }
     }
+    
 
     // Reset selected cards and re-enable clicking
     select1 = null;
@@ -117,6 +126,7 @@ function update() {
 
 function lifeLost() {
     lives = lives -1;
+    document.getElementById("lives").innerText = lives; // Update the lives display
     if (lives > 0){
         alert(`Oh no! You lost a life! Lives remaining: ${lives}`);
     } else if (lives == 0) {
@@ -127,6 +137,7 @@ function lifeLost() {
 
 function restartGame() {
     lives = 3; // Reset lives
+    matchedPairs = 0; // Reset the matched pairs counter
     errors = 0; // Reset errors
     // Reset the board
     document.getElementById("memboard").innerHTML = ""; // Clear the board
@@ -139,3 +150,7 @@ function restartGame() {
     startGame();
 }
 
+function showWinMessage() {
+    alert("Congratulations! You've matched all the pairs!");
+    window.location.href = "index.html"; //goes back to main page
+}

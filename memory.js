@@ -18,6 +18,9 @@ var cardSet;
 var board = []; //will be populated after the game loads and cards are shuffled
 var rows = 4;
 var col = 5;
+var select1 = null; // Store the first selected card element
+var select2 = null; // Store the second selected card element
+var canClick = true; // Flag to control whether cards can be clicked
 
 //when the page loads it'll shuffle the cards and start the game
 window.onload = function () {
@@ -51,10 +54,58 @@ function startGame() {
             card.id = r.toString() + "-" + c.toString();
             card.src = cardImage + ".png"; // Set the image source
             card.classList.add("card");
+            card.addEventListener("click", selectCard); // Add click event listener
             document.getElementById("memboard").append(card);
-
         }
         board.push(row); // Push the current row to the board
     }
-    console.log(board);
+    console.log(board); //print the board
+    setTimeout(hideCards, 2000); // shows cards for a certain amount of time before hiding 
 }
+
+function hideCards() {
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < col; c++) {
+            let card = document.getElementById(r.toString() + "-" + c.toString());
+            card.src = "cardcover.png"; // sets card to the back of the card 
+        }
+    }
+}
+
+function selectCard() {
+    // Only allow clicking if the card is covered and no more than 2 cards are selected
+    if (this.src.includes("cardcover.png") && canClick) {
+        if (!select1) {
+            select1 = this; // Store the first selected card element
+            let coords = select1.id.split("-");
+            let r = parseInt(coords[0]);
+            let c = parseInt(coords[1]);
+            select1.src = board[r][c] + ".png"; // Show the card image
+        } else if (!select2 && this != select1) {
+            select2 = this; // Store the second selected card element
+            let coords = select2.id.split("-");
+            let r = parseInt(coords[0]);
+            let c = parseInt(coords[1]);
+            select2.src = board[r][c] + ".png"; // Show the card image
+            canClick = false; // Disable further clicks until the pair is resolved
+            setTimeout(update, 1000); // Wait 1 second before checking for a match
+        }
+    }
+}
+
+function update() {
+    //if the cards aren't the same, flip them back
+    if (select1.src !== select2.src) {
+        select1.src = "cardcover.png";
+        select2.src = "cardcover.png";
+        errors = errors + 1;
+        document.getElementById("errors").innerText = errors;
+    }
+
+    // Reset selected cards and re-enable clicking
+    select1 = null;
+    select2 = null;
+    canClick = true; // Re-enable clicking for the next pair
+    
+}
+

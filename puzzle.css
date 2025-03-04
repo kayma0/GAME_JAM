@@ -1,0 +1,66 @@
+body {
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+  background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  justify-content: center; /* Center both boards horizontally */
+  align-items: center; /* Align them vertically */
+  gap: 30px; /* Add space between board and pieces */
+  margin-top: 40px;
+}
+
+#board {
+  width: 450px; /* Adjust width for a 3x3 board */
+  height: 450px;
+  border: 4px solid black;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#board img {
+  width: 149px; /* Adjust size for 3x3 layout */
+  height: 149px;
+  border: 0.5px solid #d6a5c5;
+}
+
+#pieces {
+  width: 450px; /* Match board width */
+  height: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  border: 4px solid black;
+}
+
+#pieces img {
+  width: 148px; /* Match board pieces */
+  height: 148px;
+  border: 0.5px solid #d6a5c5;
+}
+
+#doneButton {
+  margin-top: 40px;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: purple; /* Green color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#doneButton:hover {
+  background-color: #218838;
+}
+
+#timer {
+  font-size: 24px;
+  font-weight: bold;
+  color: red;
+}

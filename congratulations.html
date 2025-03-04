@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations!</title>
+</head>
+
+<body>
+    <h1>Congratulations! You've completed the puzzle!</h1>
+    <p>Great job! You solved it in <span id="turnsCount"></span> turns.</p>
+    <a href="puzzle.html">Play Again</a> <!-- Link back to the puzzle game -->
+    <script>
+        document.getElementById('turnsCount').innerText = localStorage.getItem('turns');
+    </script>
+</body>
+
+</html>

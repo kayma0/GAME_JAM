@@ -9,15 +9,30 @@
 </head>
 
 <body>
-    <div class="game-container"></div>
-    <div class="character"></div>
+    <canvas id="game-container"></canvas>
+    <div class="controls">
+        <label for="animations">Choose Animation:</label>
+        <select id="animations" name="animations">
+            <option value="idle">Idle</option>
+            <option value="jump">Jump</option>
+            <option value="fall">Fall</option>
+            <option value="run">Run</option>
+            <option value="dizzy">Dizzy</option>
+            <option value="sit">Sit</option>
+            <option value="roll">Roll</option>
+            <option value="bite">Bite</option>
+            <option value="ko">KO</option>
+            <option value="gethit">Get hit</option>
+        </select>
+    </div>
+    <!--<div class="character"></div>
     <div class="thought-cloud" id="thoughtCloud">
         <div class="thought-text" id="thoughtText"></div>
     </div>
     <div class="gem" style="left: 300px;"></div>
     <div class="gem" style="left: 600px;"></div>
     <div class="gem" style="left: 900px;"></div>
-    <div class="gem" style="left: 1200px;"></div>
+    <div class="gem" style="left: 1200px;"></div>-->
     <script src="index.js"></script>
 </body>
 

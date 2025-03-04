@@ -1,3 +1,93 @@
+let CharacterState = "idle";
+const dropdown = document.getElementById("animations");
+dropdown.addEventListener("change", function (e) {
+    CharacterState = e.target.value;
+})
+const canvas = document.getElementById('game-container');
+const ctx = canvas.getContext("2d");
+const CANVAS_WIDTH = canvas.width = 600;
+const CANVAS_HEIGHT = canvas.height = 600;
+
+const CharacterImg = new Image();
+CharacterImg.src = "size ref can edit.png";
+const CharacterWidth = 575;
+const CharacterHeight = 523;
+
+let gameFrame = 0;
+const staggerFrame = 5;
+const CharacterAnimations = [];
+
+const animationState = [
+    {
+        name: 'idle',
+        frames: 7,
+    },
+    {
+        name: 'jump',
+        frames: 7,
+    },
+    {
+        name: 'fall',
+        frames: 7,
+    },
+    {
+        name: 'run',
+        frames: 9,
+    },
+    {
+        name: 'dizzy',
+        frames: 11,
+    },
+    {
+        name: 'sit',
+        frames: 5,
+    },
+    {
+        name: 'roll',
+        frames: 7,
+    },
+    {
+        name: 'bite',
+        frames: 7,
+    },
+    {
+        name: 'ko',
+        frames: 12,
+    },
+    {
+        name: 'gethit',
+        frames: 4,
+    }
+];
+
+animationState.forEach((state, index) => {
+    let frames = {
+        //location
+        loc: [],
+    }
+    for (let j = 0; j < state.frames; j++) {
+        let positionX = j * CharacterWidth;
+        let positionY = index * CharacterHeight;
+        frames.loc.push({ x: positionX, y: positionY });
+    }
+    CharacterAnimations[state.name] = frames;
+});
+
+function animate() {
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    //do podition increaes by 1 every time game frame increases by 5 and only cycles between 0 and 6
+    let position = Math.floor(gameFrame / staggerFrame) % CharacterAnimations[CharacterState].loc.length;
+    let frameX = CharacterWidth * position;
+    let frameY = CharacterAnimations[CharacterState].loc[position].y;
+
+    ctx.drawImage(CharacterImg, frameX, frameY, CharacterWidth, CharacterHeight, 0, 400, CharacterWidth/6, CharacterHeight/4);
+
+    gameFrame++;
+    requestAnimationFrame(animate);
+};
+
+animate();
+/*old java
 //These select the background, the character, and the gems on the screen..
 let background = document.querySelector(".game-container");
 let character = document.querySelector(".character");
@@ -112,3 +202,4 @@ function showThought(message, duration) {
 moveBackground(); //ummm yk what this is right 🥹?
 
 //UGHHH I'M CONFUSED NOW!
+*/

@@ -10,10 +10,22 @@
 
 <div class="wordle-game">
     <h1>Wordle Game</h1>
-    <p>Guess a 6-letter word:</p>
+    <p>Guess the 6-letter word:</p>
+    <p>Hint: A popular So**h Af**c*n restaurant</p>
     <input type="text" id="guess" placeholder="Enter guess here">
     <button id="submit-btn">Submit</button>
     <ul id="guess-list"></ul>
+    <p id="error-msg" style="color: red; font-weight: bold;"></p>
+    <p id="attempts-left" style="font-weight: bold;">Attempts Left: 6</p>
+    <ul id="guess-list"></ul>
+</div>
+
+<div class="top-left-box">
+    <h2>Wordle Guide</h2>
+    <h3>✔️ indicates: Correct Letter in Correct Place</h3>
+    <h3>⭕ indicates: Correct Letter in Wrong Place</h3>
+    <h3>❌ indicates: Wrong Letter</h3>
+
 </div>
 
 <script src="wordle.js"></script>

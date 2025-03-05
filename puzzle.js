@@ -67,7 +67,7 @@ function startTimer() {
     if (timeLeft <= 0) {
       clearInterval(countdown);
       alert("Time's up! You lost! 😢");
-      window.location.href = "wordle.html"; // Redirect to index page
+      window.location.href = "memory.html"; // Redirect to index page
     }
   }, 1000);
 
@@ -75,7 +75,7 @@ function startTimer() {
   document.getElementById("doneButton").addEventListener("click", function () {
     clearInterval(countdown); // Stop the timer
     alert("Congratulations! You won! 🎉");
-    window.location.href = "wordle.html"; // Redirect to index page
+    window.location.href = "memory.html"; // Redirect to index page
   });
 }
 

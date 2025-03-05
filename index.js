@@ -1,6 +1,6 @@
 
 document.getElementById("startButton").addEventListener("click", function() {
-  window.location.href = "puzzle.html";
+  window.location.href = "wordle.html";
 });
 /*let CharacterState = "run";
 const canvas = document.getElementById('game-container');

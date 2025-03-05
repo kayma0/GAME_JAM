@@ -1,11 +1,7 @@
 .wordle-game {
     text-align: center;
     width: 50%;
-<<<<<<< HEAD
     background-image: linear-gradient(to top, #ECFFDC 0%, #FFFFF0 100%);
-=======
-    background-color: #eaeaea;
->>>>>>> df029a43b8341b52f12a620138863870da87f279
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
@@ -28,12 +24,8 @@ body {
     align-items: center; 
     height: 100vh;
     margin: 0; 
-<<<<<<< HEAD
-    background-image: linear-gradient(to top, #FFE5B4 0%, green 100%);
-=======
     background:url("Union_Street.jpg")  no-repeat center center fixed;
     background-size: cover;
->>>>>>> df029a43b8341b52f12a620138863870da87f279
     position: relative; 
 }
 

@@ -1,28 +1,32 @@
-body{
-    background-image: url("aberdeen_beach.jpg");
-    font-family:'Courier New', Courier, monospace ;
-    text-align: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
+body {
+  background-image: url("aberdeen_beach.jpg");
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /*layout of the memory board*/
-#memboard{
-    height: 532px;
-    width: 475px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: orange;
-    border: 10px solid black;
-
+#memboard {
+  height: 532px;
+  width: 475px;
+  margin: 30px auto;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: orange;
+  border: 10px solid black;
 }
 
 /*card sizing & spacing etc*/
-.card{
-    height: 120px;
-    width: 90px;
-    margin: 2.5px;
+.card {
+  height: 120px;
+  width: 90px;
+  margin: 2.5px;
+}
 
+#error,
+#live {
+  font-size: 20px;
 }

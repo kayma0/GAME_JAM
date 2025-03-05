@@ -143,8 +143,7 @@ function restartGame() {
     document.getElementById("memboard").innerHTML = ""; // Clear the board
     board = []; // Reset the board array
     errors = 0; // Reset the error count
-    document.getElementById("errors").innerText = errors; // Update the error display
-
+    document.getElementById("errors").innerText = errors; // Update the error display 
     // Shuffle and start the game again
     shuffleCards();
     startGame();
@@ -152,5 +151,5 @@ function restartGame() {
 
 function showWinMessage() {
     alert("Congratulations! You've matched all the pairs!");
-    window.location.href = "index.html"; //goes back to main page
+    window.location.href = "end.html"; //finish screen
 }

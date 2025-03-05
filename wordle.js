@@ -32,6 +32,8 @@ submitBtn.addEventListener("click", function () {
         result = "You win!";
         submitBtn.disabled = true;
         guessInput.disables = true;
+        window.location.href = "wordle.html"; //goes to next game
+        
     } else {
         const letters = word.split("");
         for (let i = 0; i < letters.length; i++) {
@@ -57,6 +59,7 @@ submitBtn.addEventListener("click", function () {
         errorMsg.textContent = 'Game Over!';
         submitBtn.disabled = true;
         guessInput.disabled = true;
+        window.location.href = "memory.html"; //goes to next game
     }
     
     // Clear input

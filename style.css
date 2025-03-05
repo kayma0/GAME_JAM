@@ -1,28 +1,33 @@
-/*body {
+body {
   margin: 0;
-  overflow: hidden;
-}*/
-
-#game-container {
- 
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    width: 100vw;
-    height: 100vh;
-    background: url("test_background2.jpeg") repeat-x center/cover;
-}
-.controls {
-    position: absolute;
-    z-index: 10;
-    top: 100px;
-    left: 50%;
-    transform: translateX(-50%);
+  padding: 0;
+  background: url('title page.png') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.controls, select, option {
-    font-size: 25px;
+.container {
+  text-align: center;
 }
+
+button {
+  padding: 15px 30px;
+  font-size: 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
 /*
 .character {
   position: absolute;

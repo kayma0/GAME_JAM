@@ -1,7 +1,7 @@
 body {
   font-family: "Courier New", Courier, monospace;
   text-align: center;
-  background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+  background: url("Aberdeen_Uni.jpg") ;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;

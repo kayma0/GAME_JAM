@@ -18,7 +18,7 @@ var cardSet;
 var board = []; //will be populated after the game loads and cards are shuffled
 var rows = 4;
 var col = 5;
-var lives = 5; //player starts with 3 lives
+var lives = 8; //player starts with 3 lives
 var matchedPairs = 0; // Track the number of matched pairs
 var select1 = null; // Store the first selected card element
 var select2 = null; // Store the second selected card element
@@ -136,15 +136,14 @@ function lifeLost() {
 }
 
 function restartGame() {
-    lives = 3; // Reset lives
+    lives = 8; // Reset lives
     matchedPairs = 0; // Reset the matched pairs counter
     errors = 0; // Reset errors
     // Reset the board
     document.getElementById("memboard").innerHTML = ""; // Clear the board
     board = []; // Reset the board array
     errors = 0; // Reset the error count
-    document.getElementById("errors").innerText = errors; // Update the error display
-
+    document.getElementById("errors").innerText = errors; // Update the error display 
     // Shuffle and start the game again
     shuffleCards();
     startGame();
@@ -152,5 +151,5 @@ function restartGame() {
 
 function showWinMessage() {
     alert("Congratulations! You've matched all the pairs!");
-    window.location.href = "index.html"; //goes back to main page
+    window.location.href = "end.html"; //finish screen
 }

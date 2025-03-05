@@ -1,4 +1,8 @@
-let CharacterState = "run";
+
+document.getElementById("startButton").addEventListener("click", function() {
+  window.location.href = "puzzle.html";
+});
+/*let CharacterState = "run";
 const canvas = document.getElementById('game-container');
 const ctx = canvas.getContext("2d");
 const CANVAS_WIDTH = canvas.width = 600;
@@ -70,11 +74,14 @@ animationState.forEach((state, index) => {
 });
 
 //character jumping veriables
+let characterX = 50;
 let characterY = 400; // Ground position
 let isJumping = false;
 let jumpStartTime = 0;
 let jumpDuration = 300; // 2 seconds
 let gravity = 4;
+let characterWidth = CharacterWidth / 6;
+let characterHeight = CharacterHeight / 4;
 
 // Background scrolling variables
 let bgPosition = 0; // Initial background position
@@ -82,6 +89,15 @@ const bgSpeed = 6; // Speed of background movement
 const bgWidth = 1920; // Width of background image (adjust if different)
 let loopCount = 0;
 const maxLoops = 2; // Stop after two full loops
+let moveSpeed = 3;
+
+// Obstacle properties
+const obstacle = {
+  x: 300, // X position of the square
+  y: 400, // Same ground level as character
+  width: 50, // Square width
+  height: 50 // Square height
+};
 
 // Change CharacterState when a key is pressed
 document.addEventListener("keydown", (event) => {
@@ -100,37 +116,59 @@ document.addEventListener("keypress", (event) => {
 });
 
 
+function checkCollision() {
+  return (
+      characterX + characterWidth > obstacle.x &&
+      characterX < obstacle.x + obstacle.width &&
+      characterY + characterHeight > obstacle.y &&
+      characterY < obstacle.y + obstacle.height
+  );
+}
 
 function animate() {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    // Background scrolling logic
+    // Background scrolling
     if (loopCount < maxLoops) {
       bgPosition -= bgSpeed;
+      obstacle.x -= bgSpeed; // Move obstacle with background
+
       if (Math.abs(bgPosition) >= bgWidth) {
           bgPosition = 0;
           loopCount++;
+          obstacle.x = 300; // Reset obstacle position when background loops
       }
+
       document.getElementById("game-container").style.backgroundPositionX = `${bgPosition}px`;
   }
-  //jumping logic
+
+    // Jump logic
     if (isJumping) {
       let elapsedTime = Date.now() - jumpStartTime;
-
       if (elapsedTime < jumpDuration) {
-          // Move character up for 2 seconds
           characterY = 400 - (elapsedTime / jumpDuration) * (CANVAS_HEIGHT / 6);
       } else {
-          // Start falling after 2 seconds
           CharacterState = "fall";
           characterY += gravity;
-
-          if (characterY >= 400) { 
+          if (characterY >= 400) {
               characterY = 400;
               isJumping = false;
               CharacterState = "run";
           }
       }
-  }   
+  }  
+
+    // Move the character forward
+    let nextX = characterX + moveSpeed;
+
+    // Check collision
+    if (!checkCollision()) {
+        characterX = nextX;
+    }
+
+    // Draw obstacle
+    ctx.fillStyle = "red";
+    ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+
     //do podition increaes by 1 every time game frame increases by 5 and only cycles between 0 and 6
     let position = Math.floor(gameFrame / staggerFrame) % CharacterAnimations[CharacterState].loc.length;
     let frameX = CharacterWidth * position;
@@ -142,7 +180,7 @@ function animate() {
     requestAnimationFrame(animate);
 };
 
-animate();
+animate();*/
 /*old java
 //These select the background, the character, and the gems on the screen..
 let background = document.querySelector(".game-container");

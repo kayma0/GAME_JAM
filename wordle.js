@@ -1,6 +1,5 @@
 const words = ["nandos"];
 
-let wordKeys = Object.keys(words);
 let word = words[Math.floor(Math.random() * words.length)];
 
 console.log(word);
@@ -15,53 +14,57 @@ let attempts = 0;
 const maxAttempts = 6;
 
 submitBtn.addEventListener("click", function () {
-    const guess = guessInput.value.toLowerCase();
-    let result = "";
+  const guess = guessInput.value.toLowerCase();
+  let result = "";
 
-    if (!/^[a-zA-Z]+$/.test(guess)) {
-        errorMsg.textContent = "Invalid input! Only letters are allowed.";
-        return;
+  if (!/^[a-zA-Z]+$/.test(guess)) {
+    errorMsg.textContent = "Invalid input! Only letters are allowed.";
+    return;
+  }
+
+  errorMsg.textContent = "";
+
+  if (guess.length !== 6) {
+    errorMsg.textContent = "Please enter a 6-letter word";
+    return;
+  }
+
+  if (guess === word) {
+    errorMsg.textContent = "You win!";
+    submitBtn.disabled = true;
+    guessInput.disabled = true;
+    setTimeout(() => {
+      window.location.href = "puzzle.html";
+    }, 2000);
+    return;
+  } else {
+    const letters = word.split("");
+    for (let i = 0; i < letters.length; i++) {
+      if (guess[i] === letters[i]) {
+        result += "✔️";
+      } else if (word.includes(guess[i])) {
+        result += "⭕";
+      } else {
+        result += "❌";
+      }
     }
+  }
 
+  const listItem = document.createElement("li");
+  listItem.textContent = `${guess} - ${result}`;
+  guessList.appendChild(listItem);
 
-    errorMsg.textContent = ""; // Clear error message if input is valid
+  attempts++;
+  attemptsLeft.textContent = `Attempts Left: ${maxAttempts - attempts}`;
 
-    if (guess.length !== 6) {
-        result = `Please enter a 6-letter word`;
-    } else if (guess === word) {
-        result = "You win!";
-        submitBtn.disabled = true;
-        guessInput.disables = true;
-        window.location.href = "puzzle.html"; //goes to next game
-        
-    } else {
-        const letters = word.split("");
-        for (let i = 0; i < letters.length; i++) {
-            if (guess[i] === letters[i]) {
-                result += "✔️"; // Correct letter in correct place
-            } else if (word.includes(guess[i])) {
-                result += "⭕"; // Correct letter but wrong place
-            } else {
-                result += "❌"; // Incorrect letter
-            }
-        }
-    }
+  if (attempts >= maxAttempts) {
+    errorMsg.textContent = "Game Over! Restarting...";
+    submitBtn.disabled = true;
+    guessInput.disabled = true;
+    setTimeout(() => {
+      location.reload();
+    }, 2000);
+  }
 
-    // Display result
-    const listItem = document.createElement("li");
-    listItem.textContent = `${guess} - ${result}`;
-    guessList.appendChild(listItem);
-
-    attempts++;
-    attemptsLeft.textContent = `Attempts Left: ${maxAttempts - attempts}`;
-
-    if (attempts >= maxAttempts && guess !== word) {
-        errorMsg.textContent = 'Game Over!';
-        submitBtn.disabled = true;
-        guessInput.disabled = true;
-        window.location.href = "puzzle.html"; //goes to next game
-    }
-    
-    // Clear input
-    guessInput.value = "";
+  guessInput.value = "";
 });

@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: url('title page.png') no-repeat center center fixed;
+  background: url("title page.png") no-repeat center center fixed;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -15,9 +15,10 @@ body {
 
 button {
   padding: 15px 30px;
+  margin-top: 100px;
   font-size: 20px;
   border: none;
-  background-color: #007bff;
+  background-color: #bb00ff;
   color: white;
   border-radius: 5px;
   cursor: pointer;
@@ -25,7 +26,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #032e5d;
 }
 
 /*

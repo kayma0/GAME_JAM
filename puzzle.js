@@ -1,4 +1,4 @@
-var rows = 3; // Change from 5x5 to 3x3
+var rows = 3;
 var columns = 3;
 var turns = 0;
 
@@ -51,13 +51,11 @@ window.onload = function () {
     document.getElementById("pieces").append(tile);
   }
 
-  // Start Timer
   startTimer();
 };
 
-// Function to handle the timer
 function startTimer() {
-  let timeLeft = 30; // 30 seconds
+  let timeLeft = 40;
   let timerDisplay = document.getElementById("timer");
 
   let countdown = setInterval(function () {
@@ -66,20 +64,18 @@ function startTimer() {
 
     if (timeLeft <= 0) {
       clearInterval(countdown);
-      alert("Time's up! You lost! 😢");
-      window.location.href = "memory.html"; // Redirect to index page
+      alert("You lost! 😔");
+      window.location.href = "memory.html";
     }
   }, 1000);
 
-  // Done button event listener
   document.getElementById("doneButton").addEventListener("click", function () {
-    clearInterval(countdown); // Stop the timer
-    alert("Congratulations! You won! 🎉");
-    window.location.href = "memory.html"; // Redirect to index page
+    clearInterval(countdown);
+    alert("You won! 🎉");
+    window.location.href = "memory.html";
   });
 }
 
-// Drag & Drop Functions
 function dragStart() {
   currTile = this;
 }

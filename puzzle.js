@@ -1,6 +1,6 @@
 var rows = 3;
 var columns = 3;
-var turns = 0;
+// var turns = 0;
 
 var currTile;
 var otherTile;
@@ -99,6 +99,6 @@ function dragEnd() {
   currTile.src = otherImg;
   otherTile.src = currImg;
 
-  turns += 1;
-  document.getElementById("turns").innerText = turns;
+  // turns += 1;
+  // document.getElementById("turns").innerText = turns;
 }

@@ -130,7 +130,7 @@ function lifeLost() {
     if (lives > 0){
         alert(`Oh no! You lost a life! Lives remaining: ${lives}`);
     } else if (lives == 0) {
-        alert("Game over! You've run out of lives.");
+        alert("Game over! You've run out of lives. Time to restart and try again!");
         restartGame();
     }
 }

@@ -5,6 +5,8 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border: 8px solid black;
+  margin-top: 200px;
 }
 
 h1 {
@@ -26,6 +28,7 @@ body {
   background: url("Aberdeen_Uni.jpg") no-repeat center center fixed;
   background-size: cover;
   position: relative;
+  overflow: hidden;
 }
 
 input[type="text"] {
@@ -37,13 +40,13 @@ input[type="text"] {
   margin-bottom: 20px;
 }
 
-div {
+/* div {
   width: 300px;
   border: 15px solid black;
   padding: 25px;
   margin: 10px;
   font-family: "Courier New", Courier, monospace;
-}
+} */
 
 button {
   background-color: #1721da;
@@ -83,4 +86,5 @@ li {
   font-weight: bold;
   color: black;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border: 8px solid black;
 }

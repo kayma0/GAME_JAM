@@ -18,7 +18,7 @@ var cardSet;
 var board = []; //will be populated after the game loads and cards are shuffled
 var rows = 4;
 var col = 5;
-var lives = 5; //player starts with 3 lives
+var lives = 8; //player starts with 3 lives
 var matchedPairs = 0; // Track the number of matched pairs
 var select1 = null; // Store the first selected card element
 var select2 = null; // Store the second selected card element
@@ -136,7 +136,7 @@ function lifeLost() {
 }
 
 function restartGame() {
-    lives = 3; // Reset lives
+    lives = 8; // Reset lives
     matchedPairs = 0; // Reset the matched pairs counter
     errors = 0; // Reset errors
     // Reset the board
